@@ -1,3 +1,4 @@
+path = require 'path'
 express = require 'express'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
@@ -8,11 +9,14 @@ server.use bodyParser.urlencoded { extended: false }
 server.use do cookieParser
 
 # setup view engine
-server.set 'views', path.join(__dirname, 'views')
+server.set 'views', path.join(__dirname, '../views')
 server.set 'view engine', 'ejs'
 
 # setup static resources
-server.use express.static(path.join(__dirname, 'public'))
+server.use express.static(path.join(__dirname, '../public'))
+
+route = require './route'
+route server
 
 init = require './init'
 init server, (err)->
@@ -20,6 +24,6 @@ init server, (err)->
     console.log err
     console.log err.stack
     return
-  port = 10090
+  port = 10100
   server.listen port, ()->
     console.log 'listening at %s', port
