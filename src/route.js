@@ -5,6 +5,7 @@
   ctrls = require('./ctrls');
 
   module.exports = function(server) {
+    server.get('/', ctrls.home.index);
     return server.get('/articles/:articleId', ctrls.article.queryById);
   };
 
